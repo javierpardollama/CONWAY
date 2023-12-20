@@ -5,3 +5,8 @@ class Constantes:
     DEFAULT_GAME_TURNS:int=10
     ALIVE:str=' * '
     DEAD:str=' . '
+    TWO_TO_DEAD_NEIGHBOURS:int = 2
+    TO_DEAD_NEIGHBOURS:list[int] = [2, 3]
+    TO_ALIVE_NEIGHBOURS:list[int] = [3]
+
+

@@ -9,12 +9,7 @@ class Rejilla:
     def __init__(self):
         self.celdas:list[Celda]=[]
 
-    def __set_grid__(self) -> None:
-        for fila in range(Constantes.DEFAULT_CELL_HEIGHT):
-            for columna in range(Constantes.DEFAULT_CELL_WIDTH):
-                self.celdas.append(Celda(columna,fila))
-
-    def __to_str__(self):
+    def __str__(self):
         rst :str= ""
 
         for fila in range(Constantes.DEFAULT_CELL_HEIGHT):
@@ -28,6 +23,11 @@ class Rejilla:
                     rst = f"{rst}{os.linesep}"
 
         return rst
+
+    def __set_grid__(self) -> None:
+        for fila in range(Constantes.DEFAULT_CELL_HEIGHT):
+            for columna in range(Constantes.DEFAULT_CELL_WIDTH):
+                self.celdas.append(Celda(columna, fila))
 
     def __set_alive__(self) -> None:
         vivas: int = round(Constantes.DEFAULT_CELL_WIDTH * Constantes.DEFAULT_CELL_HEIGHT * (Constantes.DEFAULT_INIT_ALIVE_CELLS_NUM / 100) / 2)

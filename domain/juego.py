@@ -10,7 +10,7 @@ class Juego:
         self.rejilla.__set_alive__()
 
     def __start__(self) -> None:
-        print(self.rejilla.__to_str__())
+        print(self.rejilla.__str__())
         self.next_turn_grid()
 
     def next_turn_grid(self)-> None:
@@ -20,8 +20,8 @@ class Juego:
                     celda: Celda = next(filter(lambda item: item.fila == fila and item.columna == columna, self.rejilla.celdas),
                                        None)
                     self.get_cell_living_neighbors(celda)
-
-            print(self.rejilla.__to_str__())
+            print(f"TURNO {turno}")
+            print(self.rejilla.__str__())
 
     def get_cell_living_neighbors(self, celda:Celda):
         vecinas: list[Celda] = []
@@ -82,10 +82,18 @@ class Juego:
 
         count:int = vecinas.__len__()
 
-        if count < 2 or count > 3:
-            celda.tipocelda = TipoCelda.Muerta
-        elif count >= 2:
+
+        if celda.tipocelda == TipoCelda.Viva:
+            if count < Constantes.TWO_TO_DEAD_NEIGHBOURS:
+                celda.tipocelda = TipoCelda.Muerta
+            elif count in Constantes.TO_DEAD_NEIGHBOURS:
+                celda.tipocelda = TipoCelda.Viva
+            else:
+                celda.tipocelda = TipoCelda.Muerta
+
+        elif celda.tipocelda == TipoCelda.Muerta and count in Constantes.TO_ALIVE_NEIGHBOURS:
             celda.tipocelda = TipoCelda.Viva
+
 
         idx = list(map(lambda item: item.fila == celda.fila and item.columna == celda.columna, self.rejilla.celdas)).index(True)
 
